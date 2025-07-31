@@ -29,3 +29,13 @@ The library is written in Matlab object-oriented programming language and is org
 For usage of the package, go to the path examples/ and run the demo scripts. Your suggestions and remarks are welcome.
 
 Author: Han Wang, Email: han.wang@ens.fr
+## Python package
+
+Une traduction minimale en Python se trouve dans le dossier `sies`. Vous pouvez installer ce petit paquet en mode développement avec `uv`.
+
+```bash
+uv pip install -e .
+```
+
+Puis lancez les notebooks dans `examples/` pour voir quelques démos.
+
