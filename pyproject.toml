@@ -1,0 +1,20 @@
+[project]
+name = "sies"
+version = "0.1.0"
+description = "Shape identification in electro-sensing (Python port)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "marimo",
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sies*"]
