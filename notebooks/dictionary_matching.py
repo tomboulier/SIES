@@ -20,7 +20,7 @@ def _():
 
         1. build a **dictionary** of reference shapes and their invariant
            descriptors,
-        2. simulate noisy measurements of an **unknown target** — a rotated,
+        2. simulate noisy measurements of an **unknown target**: a rotated,
            scaled and translated dictionary element,
         3. reconstruct its CGPT, compute its descriptors, and **identify**
            it in the dictionary.
@@ -151,7 +151,7 @@ def _(mo):
         As in the original paper, identification is perfect at low noise
         and degrades around 5–10% noise, where shapes with similar
         low-order descriptors (the flat ellipse and the 2:1 rectangle)
-        start to be confused — lowering the comparison order helps.
+        start to be confused; lowering the comparison order helps.
         """
     )
     return
