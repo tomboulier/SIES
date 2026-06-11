@@ -1,0 +1,71 @@
+site_name: SIES
+site_description: Shape Identification in Electro-Sensing
+site_url: https://tomboulier.github.io/SIES/
+repo_url: https://github.com/tomboulier/SIES
+repo_name: tomboulier/SIES
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true
+            members_order: source
+            merge_init_into_class: true
+            separate_signature: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Mathematical background: theory.md
+  - Notebooks: notebooks.md
+  - API reference:
+      - Shapes: api/shapes.md
+      - Green's functions: api/greens.md
+      - Layer potentials: api/operators.md
+      - Asymptotics (CGPT): api/asymptotics.md
+      - Acquisition: api/acquisition.md
+      - PDE models: api/pde.md
+      - Dictionary matching: api/dictionary.md
+      - Tracking: api/tracking.md
+      - Utilities: api/utils.md
+  - MATLAB legacy: matlab.md

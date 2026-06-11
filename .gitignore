@@ -20,6 +20,7 @@
 # !examples/
 
 
+# MATLAB artifacts
 *.mexglx
 *.mexa64
 *.todo
@@ -35,3 +36,30 @@ tmp
 thirdparty
 html
 images
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Docs build
+site/
+
+# Environments
+.venv/
+venv/
+
+# Editors
+.idea/
+.vscode/
+*.swp
