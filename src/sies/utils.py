@@ -36,9 +36,18 @@ def add_white_noise(
     sigma : float
         Global standard deviation of the added noise,
         ``norm(data) / sqrt(data.size) * level``.
+
+    Raises
+    ------
+    ValueError
+        If `level` is negative or `data` is not a 2D array.
     """
     rng = rng or np.random.default_rng()
     data = np.asarray(data)
+    if level < 0:
+        raise ValueError("Noise level must be nonnegative.")
+    if data.ndim != 2:
+        raise ValueError("Data must be a 2D array.")
 
     if per_row:
         scale = np.linalg.norm(data, axis=1, keepdims=True) / np.sqrt(data.shape[1])

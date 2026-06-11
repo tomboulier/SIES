@@ -42,3 +42,13 @@ def test_zero_level_returns_data(rng):
 def test_default_rng_used_when_omitted():
     noisy, _ = add_white_noise(np.ones((4, 4)), 0.1)
     assert noisy.shape == (4, 4)
+
+
+def test_negative_level_rejected():
+    with pytest.raises(ValueError, match="nonnegative"):
+        add_white_noise(np.ones((4, 4)), -0.1)
+
+
+def test_non_2d_data_rejected():
+    with pytest.raises(ValueError, match="2D"):
+        add_white_noise(np.ones(4), 0.1)

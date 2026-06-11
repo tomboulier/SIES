@@ -242,9 +242,16 @@ def _as_complex(translation) -> complex:
     -------
     complex
         The translation as ``tx + i ty``.
+
+    Raises
+    ------
+    ValueError
+        If an array-like translation does not have exactly two entries.
     """
     arr = np.asarray(translation)
     if arr.ndim == 0:
         return complex(arr)
     arr = arr.reshape(-1)
+    if arr.size != 2:
+        raise ValueError("A translation vector must have exactly two entries.")
     return complex(arr[0] + 1j * arr[1])

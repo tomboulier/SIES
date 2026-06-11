@@ -56,6 +56,11 @@ def test_translation_as_vector_equals_complex(cgpt):
     np.testing.assert_allclose(moved_complex, moved_vector)
 
 
+def test_translation_vector_of_wrong_size_rejected(cgpt):
+    with pytest.raises(ValueError, match="two entries"):
+        transform_cgpt(cgpt, np.array([0.5, 0.25, 1.0]))
+
+
 def test_scaling_acts_diagonally(cgpt):
     # Under pure scaling, the entry (m, n) of N1, N2 scales as s^(m + n).
     n1, n2 = cgpt_to_complex(cgpt)

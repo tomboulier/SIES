@@ -39,9 +39,11 @@ class MSRData:
     Attributes
     ----------
     msr : list of ndarray
-        One MSR matrix of shape ``(nb_sources, nb_receivers)`` per
-        frequency. Entry ``(s, r)`` is the field perturbation produced
-        by source ``s`` and measured at receiver ``r``.
+        One MSR matrix of shape ``(nb_sources, nb_receivers_per_group)``
+        per frequency. Entry ``(s, r)`` is the field perturbation
+        produced by source ``s`` and measured at the ``r``-th receiver
+        of the source's group (for single-group configurations, simply
+        the ``r``-th receiver).
     freqs : list of float
         Working frequencies.
     msr_noisy : list of ndarray
@@ -142,7 +144,7 @@ class ConductivityR2:
     # Forward problem
     # ------------------------------------------------------------------
     def _compute_dgdn(self) -> NDArray:
-        """Compute the normal derivative of the source Greens's functions.
+        """Compute the normal derivative of the source Green's functions.
 
         Returns
         -------

@@ -139,14 +139,21 @@ class ExtendedKalmanFilter:
     ) -> NDArray:
         """Filter a stream of measurements.
 
+        The filter follows the standard predict-update cycle: at each
+        step the previous estimate is propagated through the state
+        equation before being corrected by the measurement. The
+        `initial_state` is therefore the estimate *prior* to the first
+        measurement (at time step -1).
+
         Parameters
         ----------
         measurements : ndarray, shape (m, nb_steps)
             One measurement vector per time step.
         initial_state : ndarray, shape (d,)
-            Initial state guess.
+            State estimate one step before the first measurement.
         initial_cov : ndarray, shape (d, d), optional
-            Initial state covariance guess; zero by default.
+            Covariance of the initial state estimate; zero by default
+            (the initial state is trusted exactly).
 
         Returns
         -------
@@ -167,7 +174,9 @@ class ExtendedKalmanFilter:
             innovation = measurements[:, n] - self.observation(predicted)
             jacobian = self.observation_jacobian(predicted)
             innovation_cov = jacobian @ predicted_cov @ jacobian.T + self.observation_cov
-            gain = predicted_cov @ jacobian.T @ np.linalg.inv(innovation_cov)
+            # gain = P H^T S^-1, computed by solving the (symmetric)
+            # system instead of forming the explicit inverse.
+            gain = np.linalg.solve(innovation_cov, jacobian @ predicted_cov).T
 
             state = predicted + gain @ innovation
             cov = predicted_cov - gain @ jacobian @ predicted_cov

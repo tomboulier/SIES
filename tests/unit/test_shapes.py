@@ -108,7 +108,18 @@ def test_rotation_preserves_area_and_tracks_angle():
 def test_principal_direction_of_elongated_ellipse():
     ellipse = Ellipse(2.0, 0.5, 256)
     direction = ellipse.principal_direction
-    assert abs(direction[0]) == pytest.approx(1.0, abs=1e-6)
+    assert direction[0] == pytest.approx(1.0, abs=1e-6)
+
+
+def test_principal_direction_of_vertical_shape():
+    # A near-vertical principal axis must not blow up (no arctan of a
+    # division by zero) and the sign convention keeps it deterministic.
+    tall = Ellipse(2.0, 0.5, 256).rotate(np.pi / 2)
+    direction = tall.principal_direction
+    assert abs(direction[1]) == pytest.approx(1.0, abs=1e-6)
+    assert np.linalg.norm(direction) == pytest.approx(1.0)
+    first_nonzero = direction[0] if abs(direction[0]) > 1e-12 else direction[1]
+    assert first_nonzero > 0
 
 
 def test_is_inside_and_disjoint():

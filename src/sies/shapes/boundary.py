@@ -129,11 +129,16 @@ class C2Boundary:
 
     @property
     def principal_direction(self) -> NDArray:
-        """ndarray: Principal direction of the shape (unit vector)."""
+        """ndarray: Principal direction of the shape (unit vector).
+
+        The sign is normalized so that the first nonzero component is
+        positive (the direction is defined up to a sign).
+        """
         dd = self.points - self.center_of_mass[:, np.newaxis]
         eigvec = np.linalg.svd(dd @ dd.T)[0][:, 0]
-        angle = np.arctan(eigvec[1] / eigvec[0])
-        return np.array([np.cos(angle), np.sin(angle)])
+        if eigvec[0] < 0 or (eigvec[0] == 0 and eigvec[1] < 0):
+            eigvec = -eigvec
+        return eigvec
 
     # ------------------------------------------------------------------
     # Geometric transformations (return new objects)
