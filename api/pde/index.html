@@ -1,0 +1,2797 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Shape Identification in Electro-Sensing">
+      
+      
+      
+        <link rel="canonical" href="https://tomboulier.github.io/SIES/api/pde/">
+      
+      
+        <link rel="prev" href="../acquisition/">
+      
+      
+        <link rel="next" href="../dictionary/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>PDE models - SIES</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pde-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SIES" class="md-header__button md-logo" aria-label="SIES" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SIES
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PDE models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomboulier/SIES" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomboulier/SIES
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SIES" class="md-nav__button md-logo" aria-label="SIES" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SIES
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomboulier/SIES" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomboulier/SIES
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical background
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notebooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shapes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../greens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Green's functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layer potentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics (CGPT)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acquisition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acquisition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDE models
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDE models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sies.pde.conductivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        conductivity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="conductivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.MSRData" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSRData
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ReconstructionResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconstructionResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConductivityR2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ConductivityR2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.simulate_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        simulate_data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.add_white_noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_white_noise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.make_matrix_a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        make_matrix_a
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.make_linear_operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        make_linear_operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reconstruct_cgpt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt_analytic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reconstruct_cgpt_analytic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary matching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../matlab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MATLAB legacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sies.pde.conductivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        conductivity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="conductivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.MSRData" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSRData
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ReconstructionResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconstructionResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConductivityR2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ConductivityR2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.simulate_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        simulate_data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.add_white_noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_white_noise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.make_matrix_a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        make_matrix_a
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.make_linear_operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        make_linear_operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reconstruct_cgpt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt_analytic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reconstruct_cgpt_analytic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sies.pde.conductivity.ConductivityR2.plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="pde-models">PDE models<a class="headerlink" href="#pde-models" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="sies.pde.conductivity" class="doc doc-heading">
+            <span class="doc doc-object-name doc-module-name">sies.pde.conductivity</span>
+
+
+<a href="#sies.pde.conductivity" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>The conductivity problem in free space.</p>
+<p>The potential <span class="arithmatex">\(u\)</span> solves</p>
+<p>$$
+\nabla \cdot (\rho_D \nabla u) = 0 \quad \text{in }
+\mathbb{R}^2 \setminus {x_s}, \qquad
+u - G(\cdot - x_s) = O(|x|^{-1}),
+$$
+where <span class="arithmatex">\(\rho_D = 1 + \sum_l (k_l - 1) \chi_{D_l}\)</span> and
+<span class="arithmatex">\(k_l = \sigma_l + i \omega \epsilon_l\)</span>. The Multi-Static
+Response (MSR) matrix collects the perturbations <span class="arithmatex">\(u - G\)</span> measured
+at the receivers; it is simulated here through a boundary integral
+representation, and inverted for the CGPT of the inclusions.</p>
+<p>Reference: Ammari et al., <em>Target identification using dictionary
+matching of generalized polarization tensors</em>, FoCM (2014).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sies.pde.conductivity.MSRData" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">MSRData</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#sies.pde.conductivity.MSRData" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">MSRData</span><span class="p">(</span><span class="n">msr</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">msr_noisy</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span> <span class="n">noise_sigma</span><span class="o">=</span><span class="nb">list</span><span class="p">())</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Multi-static response data, possibly at several frequencies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.MSRData.msr">msr</span></code></td>
+            <td>
+                  <code>list of ndarray</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>One MSR matrix of shape <code>(nb_sources, nb_receivers_per_group)</code>
+per frequency. Entry <code>(s, r)</code> is the field perturbation
+produced by source <code>s</code> and measured at the <code>r</code>-th receiver
+of the source's group (for single-group configurations, simply
+the <code>r</code>-th receiver).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.MSRData.freqs">freqs</span></code></td>
+            <td>
+                  <code>list of float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Working frequencies.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.MSRData.msr_noisy">msr_noisy</span></code></td>
+            <td>
+                  <code>list of ndarray</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Noisy version of <code>msr</code> (empty until noise is added).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.MSRData.noise_sigma">noise_sigma</span></code></td>
+            <td>
+                  <code>list of float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Standard deviation of the noise added at each frequency.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sies.pde.conductivity.ReconstructionResult" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">ReconstructionResult</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#sies.pde.conductivity.ReconstructionResult" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ReconstructionResult</span><span class="p">(</span><span class="n">cgpt</span><span class="p">,</span> <span class="n">residual</span><span class="p">,</span> <span class="n">relative_residual</span><span class="p">,</span> <span class="n">source_matrix</span><span class="p">,</span> <span class="n">receiver_matrix</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Result of a CGPT reconstruction.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ReconstructionResult.cgpt">cgpt</span></code></td>
+            <td>
+                  <code>list of ndarray</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Reconstructed CGPT matrix at each frequency.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ReconstructionResult.residual">residual</span></code></td>
+            <td>
+                  <code>list of float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Norm of the data misfit at each frequency.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ReconstructionResult.relative_residual">relative_residual</span></code></td>
+            <td>
+                  <code>list of float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data misfit relative to the data norm.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ReconstructionResult.source_matrix">source_matrix</span></code></td>
+            <td>
+                  <code><span title="ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linear operator <code>As</code> acting on the source side.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ReconstructionResult.receiver_matrix">receiver_matrix</span></code></td>
+            <td>
+                  <code><span title="ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linear operator <code>Ar</code> acting on the receiver side; the forward
+model is <code>MSR = As @ CGPT @ Ar.T</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sies.pde.conductivity.ConductivityR2" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">ConductivityR2</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">ConductivityR2</span><span class="p">(</span><span class="n">inclusions</span><span class="p">,</span> <span class="n">cnd</span><span class="p">,</span> <span class="n">pmtt</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Conductivity problem with small inclusions in free space.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>inclusions</code>
+            </td>
+            <td>
+                  <code>C2Boundary or list of C2Boundary</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mutually disjoint inclusions, all discretized with the same
+number of boundary points.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>cnd</code>
+            </td>
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Conductivity of each inclusion (positive, different from one).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>pmtt</code>
+            </td>
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Permittivity of each inclusion (nonnegative).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>cfg</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="AcquisitionConfig (sies.acquisition.AcquisitionConfig)" href="../acquisition/#sies.acquisition.configurations.AcquisitionConfig">AcquisitionConfig</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Geometry of sources and receivers.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ConductivityR2.inclusions">inclusions</span></code></td>
+            <td>
+                  <code>list of C2Boundary</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The inclusions.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ConductivityR2.cnd, pmtt">cnd, pmtt</span></code></td>
+            <td>
+                  <code><span title="ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Material constants.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="sies.pde.conductivity.ConductivityR2.cfg">cfg</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="AcquisitionConfig (sies.acquisition.AcquisitionConfig)" href="../acquisition/#sies.acquisition.configurations.AcquisitionConfig">AcquisitionConfig</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The acquisition configuration.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+                  <details class="mkdocstrings-source">
+                    <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">inclusions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">C2Boundary</span><span class="p">]</span> <span class="o">|</span> <span class="n">C2Boundary</span><span class="p">,</span>
+    <span class="n">cnd</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
+    <span class="n">pmtt</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="p">:</span> <span class="n">AcquisitionConfig</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inclusions</span><span class="p">,</span> <span class="n">C2Boundary</span><span class="p">):</span>
+        <span class="n">inclusions</span> <span class="o">=</span> <span class="p">[</span><span class="n">inclusions</span><span class="p">]</span>
+    <span class="n">nb_points</span> <span class="o">=</span> <span class="p">{</span><span class="n">incl</span><span class="o">.</span><span class="n">nb_points</span> <span class="k">for</span> <span class="n">incl</span> <span class="ow">in</span> <span class="n">inclusions</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nb_points</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inclusions must have the same number of boundary points.&quot;</span><span class="p">)</span>
+
+    <span class="n">cnd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cnd</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">pmtt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pmtt</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cnd</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inclusions</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">pmtt</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inclusions</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Conductivity and permittivity must be given for each inclusion.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">cnd</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">cnd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Conductivity must be nonnegative and different from 1.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">pmtt</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Permittivity must be nonnegative.&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">inclusions</span> <span class="o">=</span> <span class="n">inclusions</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnd</span> <span class="o">=</span> <span class="n">cnd</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pmtt</span> <span class="o">=</span> <span class="n">pmtt</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg</span>
+
+    <span class="c1"># Frequency-independent quantities, precomputed once.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_block_matrix</span> <span class="o">=</span> <span class="n">make_block_matrix</span><span class="p">(</span><span class="n">inclusions</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dgdn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_dgdn</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.simulate_data" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">simulate_data</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2.simulate_data" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">simulate_data</span><span class="p">(</span><span class="n">freqs</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Simulate the MSR matrices at the given frequencies.</p>
+<p>The perturbation measured by a receiver is represented as a sum
+of single layer potentials,
+<span class="arithmatex">\(u - G = \sum_l S_{D_l}[\phi_l]\)</span>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>freqs</code>
+            </td>
+            <td>
+                  <code>float or list of float</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Working frequencies.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="MSRData
+
+
+  
+      dataclass
+   (sies.pde.conductivity.MSRData)" href="#sies.pde.conductivity.MSRData">MSRData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The simulated data.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">simulate_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freqs</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSRData</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Simulate the MSR matrices at the given frequencies.</span>
+
+<span class="sd">    The perturbation measured by a receiver is represented as a sum</span>
+<span class="sd">    of single layer potentials,</span>
+<span class="sd">    $u - G = \sum_l S_{D_l}[\phi_l]$.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    freqs : float or list of float, default 0.0</span>
+<span class="sd">        Working frequencies.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MSRData</span>
+<span class="sd">        The simulated data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+
+    <span class="n">msr_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>
+        <span class="n">densities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_densities</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="nb">complex</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">iscomplexobj</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">densities</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span>
+        <span class="n">msr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">nb_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">nb_receivers_per_group</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">incl</span><span class="p">,</span> <span class="n">phi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inclusions</span><span class="p">,</span> <span class="n">densities</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">nb_sources</span><span class="p">):</span>
+                <span class="n">rcv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">receivers_of_source</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                <span class="n">msr</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+=</span> <span class="n">SingleLayer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">incl</span><span class="p">,</span> <span class="n">phi</span><span class="p">[:,</span> <span class="n">s</span><span class="p">],</span> <span class="n">rcv</span><span class="p">)</span>
+        <span class="n">msr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msr</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">MSRData</span><span class="p">(</span><span class="n">msr</span><span class="o">=</span><span class="n">msr_list</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">freqs</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.add_white_noise" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">add_white_noise</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#sies.pde.conductivity.ConductivityR2.add_white_noise" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_white_noise</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Add white noise to simulated MSR data.</p>
+<p>The real and imaginary parts are corrupted independently, source
+by source.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="MSRData
+
+
+  
+      dataclass
+   (sies.pde.conductivity.MSRData)" href="#sies.pde.conductivity.MSRData">MSRData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Simulated data.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>level</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Noise level (e.g. <code>0.1</code> for 10% noise).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rng</code>
+            </td>
+            <td>
+                  <code><span title="numpy.random.Generator">Generator</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Random generator, for reproducibility.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="MSRData
+
+
+  
+      dataclass
+   (sies.pde.conductivity.MSRData)" href="#sies.pde.conductivity.MSRData">MSRData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A new data object with the <code>msr_noisy</code> and <code>noise_sigma</code>
+fields filled in.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_white_noise</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">MSRData</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MSRData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add white noise to simulated MSR data.</span>
+
+<span class="sd">    The real and imaginary parts are corrupted independently, source</span>
+<span class="sd">    by source.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : MSRData</span>
+<span class="sd">        Simulated data.</span>
+<span class="sd">    level : float</span>
+<span class="sd">        Noise level (e.g. ``0.1`` for 10% noise).</span>
+<span class="sd">    rng : numpy.random.Generator, optional</span>
+<span class="sd">        Random generator, for reproducibility.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MSRData</span>
+<span class="sd">        A new data object with the `msr_noisy` and `noise_sigma`</span>
+<span class="sd">        fields filled in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">rng</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+    <span class="n">noisy</span><span class="p">,</span> <span class="n">sigmas</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">msr</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">msr</span><span class="p">:</span>
+        <span class="n">real</span><span class="p">,</span> <span class="n">sigma_r</span> <span class="o">=</span> <span class="n">add_white_noise</span><span class="p">(</span><span class="n">msr</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">rng</span><span class="p">)</span>
+        <span class="n">imag</span><span class="p">,</span> <span class="n">sigma_i</span> <span class="o">=</span> <span class="n">add_white_noise</span><span class="p">(</span><span class="n">msr</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">rng</span><span class="p">)</span>
+        <span class="n">noisy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">real</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">imag</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplexobj</span><span class="p">(</span><span class="n">msr</span><span class="p">)</span> <span class="k">else</span> <span class="n">real</span><span class="p">)</span>
+        <span class="n">sigmas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">sigma_r</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">sigma_i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">MSRData</span><span class="p">(</span><span class="n">msr</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">msr</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">freqs</span><span class="p">,</span> <span class="n">msr_noisy</span><span class="o">=</span><span class="n">noisy</span><span class="p">,</span> <span class="n">noise_sigma</span><span class="o">=</span><span class="n">sigmas</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.make_matrix_a" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">make_matrix_a</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#sies.pde.conductivity.ConductivityR2.make_matrix_a" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">make_matrix_a</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Acquisition matrix of the linearized CGPT forward model.</p>
+<p>Row <code>i</code> contains the coefficients
+<span class="arithmatex">\([\cos(m\theta_i), \sin(m\theta_i)] / (2\pi m R_i^m)\)</span>
+for <code>m = 1..order</code>, where <span class="arithmatex">\((R_i, \theta_i)\)</span> are the
+polar coordinates of the <code>i</code>-th point relative to <code>center</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>points</code>
+            </td>
+            <td>
+                  <code>(<span title="ndarray">ndarray</span>, <span title="shape">shape</span>(2, <span title="n">n</span>))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Coordinates of the sources or receivers.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>center</code>
+            </td>
+            <td>
+                  <code>(<span title="ndarray">ndarray</span>, <span title="shape">shape</span>(2))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Reference center.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum CGPT order.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>(<span title="ndarray">ndarray</span>, <span title="shape">shape</span>(<span title="n">n</span>, 2 * <span title="order">order</span>))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The acquisition matrix.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_matrix_a</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span> <span class="n">center</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Acquisition matrix of the linearized CGPT forward model.</span>
+
+<span class="sd">    Row ``i`` contains the coefficients</span>
+<span class="sd">    $[\cos(m\theta_i), \sin(m\theta_i)] / (2\pi m R_i^m)$</span>
+<span class="sd">    for ``m = 1..order``, where $(R_i, \theta_i)$ are the</span>
+<span class="sd">    polar coordinates of the ``i``-th point relative to `center`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    points : ndarray, shape (2, n)</span>
+<span class="sd">        Coordinates of the sources or receivers.</span>
+<span class="sd">    center : ndarray, shape (2,)</span>
+<span class="sd">        Reference center.</span>
+<span class="sd">    order : int</span>
+<span class="sd">        Maximum CGPT order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray, shape (n, 2 * order)</span>
+<span class="sd">        The acquisition matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">points</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">delta</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">delta</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">radius</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">**</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">order</span><span class="p">))</span>
+    <span class="n">matrix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">weights</span>
+    <span class="n">matrix</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">weights</span>
+    <span class="k">return</span> <span class="n">matrix</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.make_linear_operator" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">make_linear_operator</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2.make_linear_operator" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">make_linear_operator</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Build the matrices of the forward model <code>MSR = As CGPT Ar^T</code>.</p>
+<p>Only single-group (full or sparse view) configurations are
+supported.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum CGPT order.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>source_matrix</code></td>            <td>
+                  <code>(<span title="ndarray">ndarray</span>, <span title="shape">shape</span>(<span title="nb_sources">nb_sources</span>, 2 * <span title="order">order</span>))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Matrix <code>As</code> acting on the source side.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td><code>receiver_matrix</code></td>            <td>
+                  <code>(<span title="ndarray">ndarray</span>, <span title="shape">shape</span>(<span title="nb_receivers">nb_receivers</span>, 2 * <span title="order">order</span>))</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Matrix <code>Ar</code> acting on the receiver side.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_linear_operator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the matrices of the forward model ``MSR = As CGPT Ar^T``.</span>
+
+<span class="sd">    Only single-group (full or sparse view) configurations are</span>
+<span class="sd">    supported.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    order : int</span>
+<span class="sd">        Maximum CGPT order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    source_matrix : ndarray, shape (nb_sources, 2 * order)</span>
+<span class="sd">        Matrix ``As`` acting on the source side.</span>
+<span class="sd">    receiver_matrix : ndarray, shape (nb_receivers, 2 * order)</span>
+<span class="sd">        Matrix ``Ar`` acting on the receiver side.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">nb_groups</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Grouped (limited-view) operators are not supported.&quot;</span><span class="p">)</span>
+    <span class="n">src_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_matrix_a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">all_sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+    <span class="n">rcv_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_matrix_a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">all_receivers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">src_matrix</span><span class="p">,</span> <span class="n">rcv_matrix</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.reconstruct_cgpt" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">reconstruct_cgpt</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">reconstruct_cgpt</span><span class="p">(</span><span class="n">msr</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Reconstruct the CGPT from MSR data by least squares.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>msr</code>
+            </td>
+            <td>
+                  <code>ndarray or list of ndarray</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>MSR matrix (or one matrix per frequency).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum order of the reconstruction.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ReconstructionResult
+
+
+  
+      dataclass
+   (sies.pde.conductivity.ReconstructionResult)" href="#sies.pde.conductivity.ReconstructionResult">ReconstructionResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The reconstructed CGPT and residuals.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reconstruct_cgpt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msr</span><span class="p">:</span> <span class="n">NDArray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReconstructionResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reconstruct the CGPT from MSR data by least squares.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msr : ndarray or list of ndarray</span>
+<span class="sd">        MSR matrix (or one matrix per frequency).</span>
+<span class="sd">    order : int</span>
+<span class="sd">        Maximum order of the reconstruction.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ReconstructionResult</span>
+<span class="sd">        The reconstructed CGPT and residuals.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">src_matrix</span><span class="p">,</span> <span class="n">rcv_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_linear_operator</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invert</span><span class="p">(</span><span class="n">msr</span><span class="p">,</span> <span class="n">src_matrix</span><span class="p">,</span> <span class="n">rcv_matrix</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.reconstruct_cgpt_analytic" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">reconstruct_cgpt_analytic</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2.reconstruct_cgpt_analytic" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">reconstruct_cgpt_analytic</span><span class="p">(</span><span class="n">msr</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Reconstruct the CGPT with the closed-form least-squares inverse.</p>
+<p>For equispaced full-view circular configurations the acquisition
+matrices satisfy <code>Cs' Cs = Ns / 2 I</code>, which yields the explicit
+solution</p>
+<div class="arithmatex">\[M = \frac{4}{N_s N_r} D_s^{-1} C_s^T \, \mathrm{MSR} \, C_r D_r^{-1}.\]</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>msr</code>
+            </td>
+            <td>
+                  <code>ndarray or list of ndarray</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>MSR matrix (or one matrix per frequency).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum order of the reconstruction. Internally capped at
+<code>(min(Ns, Nr) - 1) / 2</code>, the maximum resolvable order.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ReconstructionResult
+
+
+  
+      dataclass
+   (sies.pde.conductivity.ReconstructionResult)" href="#sies.pde.conductivity.ReconstructionResult">ReconstructionResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The reconstructed CGPT and residuals.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reconstruct_cgpt_analytic</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">msr</span><span class="p">:</span> <span class="n">NDArray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReconstructionResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reconstruct the CGPT with the closed-form least-squares inverse.</span>
+
+<span class="sd">    For equispaced full-view circular configurations the acquisition</span>
+<span class="sd">    matrices satisfy ``Cs&#39; Cs = Ns / 2 I``, which yields the explicit</span>
+<span class="sd">    solution</span>
+
+<span class="sd">    $$M = \frac{4}{N_s N_r} D_s^{-1} C_s^T \, \mathrm{MSR} \, C_r D_r^{-1}.$$</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msr : ndarray or list of ndarray</span>
+<span class="sd">        MSR matrix (or one matrix per frequency).</span>
+<span class="sd">    order : int</span>
+<span class="sd">        Maximum order of the reconstruction. Internally capped at</span>
+<span class="sd">        ``(min(Ns, Nr) - 1) / 2``, the maximum resolvable order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ReconstructionResult</span>
+<span class="sd">        The reconstructed CGPT and residuals.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">Concentric</span><span class="p">)</span> <span class="ow">and</span> <span class="n">cfg</span><span class="o">.</span><span class="n">equispaced</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Analytic reconstruction requires an equispaced concentric configuration.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">nb_src</span><span class="p">,</span> <span class="n">nb_rcv</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">nb_sources</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">nb_receivers</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="p">(</span><span class="n">nb_src</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">nb_rcv</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">cs</span><span class="p">,</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">_make_matrix_cd</span><span class="p">(</span><span class="n">nb_src</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">radius_src</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+    <span class="n">cr</span><span class="p">,</span> <span class="n">dr</span> <span class="o">=</span> <span class="n">_make_matrix_cd</span><span class="p">(</span><span class="n">nb_rcv</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">radius_rcv</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+
+    <span class="n">msr_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">msr</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msr</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">msr</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">ds</span><span class="p">))</span>
+    <span class="n">idr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">dr</span><span class="p">))</span>
+
+    <span class="n">cgpts</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">relative</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">msr_list</span><span class="p">:</span>
+        <span class="n">cgpt</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">ids</span> <span class="o">@</span> <span class="n">cs</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">data</span> <span class="o">@</span> <span class="n">cr</span> <span class="o">@</span> <span class="n">idr</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_src</span> <span class="o">*</span> <span class="n">nb_rcv</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">cs</span> <span class="o">@</span> <span class="n">ds</span> <span class="o">@</span> <span class="n">cgpt</span> <span class="o">@</span> <span class="p">(</span><span class="n">cr</span> <span class="o">@</span> <span class="n">dr</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+        <span class="n">cgpts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cgpt</span><span class="p">)</span>
+        <span class="n">residuals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">relative</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">ReconstructionResult</span><span class="p">(</span>
+        <span class="n">cgpt</span><span class="o">=</span><span class="n">cgpts</span><span class="p">,</span>
+        <span class="n">residual</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span>
+        <span class="n">relative_residual</span><span class="o">=</span><span class="n">relative</span><span class="p">,</span>
+        <span class="n">source_matrix</span><span class="o">=</span><span class="n">cs</span> <span class="o">@</span> <span class="n">ds</span><span class="p">,</span>
+        <span class="n">receiver_matrix</span><span class="o">=</span><span class="n">cr</span> <span class="o">@</span> <span class="n">dr</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="sies.pde.conductivity.ConductivityR2.plot" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">plot</span>
+
+
+<a href="#sies.pde.conductivity.ConductivityR2.plot" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Plot the inclusions and the acquisition system.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>ax</code>
+            </td>
+            <td>
+                  <code><span title="matplotlib.axes.Axes">Axes</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Axes to draw on. A new figure is created if omitted.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**kwargs</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Forwarded to the inclusion plot calls.</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="matplotlib.axes.Axes">Axes</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The axes containing the plot.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/sies/pde/conductivity.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the inclusions and the acquisition system.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : matplotlib.axes.Axes, optional</span>
+<span class="sd">        Axes to draw on. A new figure is created if omitted.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Forwarded to the inclusion plot calls.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes.Axes</span>
+<span class="sd">        The axes containing the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">incl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusions</span><span class="p">:</span>
+        <span class="n">incl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
