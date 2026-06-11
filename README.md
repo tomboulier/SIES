@@ -123,10 +123,9 @@ checks (Jacobians, gradients), and end-to-end experiments (identification
 under noise, tracking).
 
 > [!NOTE]
-> The documentation site is published by the `Docs` workflow on every push to
-> `master`. After the first deployment, enable GitHub Pages once in
-> *Settings → Pages → deploy from the `gh-pages` branch*; until then the Docs
-> badge link returns a 404.
+> The documentation site is built and published automatically by the `Docs`
+> workflow on every push to `master`, through the official GitHub Pages
+> actions — no manual configuration is needed in *Settings → Pages*.
 
 ## References
 

@@ -5,22 +5,52 @@ on:
     branches: [master]
   workflow_dispatch:
 
+# Deploy through the official GitHub Pages actions: the site is uploaded
+# as an artifact and published directly, without a gh-pages branch and
+# without any manual configuration in Settings -> Pages
+# (actions/configure-pages enables Pages through the API).
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Build and deploy documentation
+  build:
+    name: Build documentation
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
       - name: Install package with docs dependencies
         run: pip install -e .[docs]
-      - name: Deploy to GitHub Pages
-        run: mkdocs gh-deploy --force
+      - name: Build the site
+        run: mkdocs build
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
