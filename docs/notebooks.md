@@ -26,7 +26,7 @@ it with the theoretical value and with the closed-form ellipse formulas.
 
 The complete identification experiment of the FoCM 2014 paper: a dictionary
 of shapes, an unknown (transformed) target, noisy measurements, and
-identification by invariant shape descriptors — including a study of the
+identification by invariant shape descriptors, including a study of the
 robustness to noise.
 
 ![Matching results](assets/matching_results.png)

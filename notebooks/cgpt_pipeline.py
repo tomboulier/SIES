@@ -96,8 +96,8 @@ def _(mo):
         $$\phi_m = (\lambda I - K_D^*)^{-1}
         \left[\partial_\nu \mathrm{Re}/\mathrm{Im}(z^m)\right]$$
 
-        on the boundary. For ellipses, an exact formula is known (M. Lim) —
-        the two must agree to machine precision.
+        on the boundary. For ellipses, an exact formula is known (M. Lim),
+        and the two must agree to machine precision.
         """
     )
     return

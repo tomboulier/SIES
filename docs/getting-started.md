@@ -43,7 +43,7 @@ translation, rotation and scaling.
 
 ### 2. Simulate measurements of an unknown target
 
-The target is a *transformed* dictionary element — the identification must
+The target is a *transformed* dictionary element, so the identification must
 succeed regardless of its position, orientation and size:
 
 ```python

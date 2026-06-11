@@ -1,4 +1,4 @@
-# SIES — Shape Identification in Electro-Sensing
+# SIES: Shape Identification in Electro-Sensing
 
 **SIES** is a Python library for inverse problems in electro-sensing: it
 simulates electric measurements of small inclusions, computes their
@@ -9,21 +9,21 @@ from noisy data.
 
 ## What can it do?
 
-- **Shapes** — discretized $C^2$-smooth boundaries (ellipses, flowers,
+- **Shapes**: discretized $C^2$-smooth boundaries (ellipses, flowers,
   triangles, rectangles, bananas) with exact differential geometry and rigid
   motions.
-- **Layer potentials** — boundary integral operators of potential theory:
+- **Layer potentials**: boundary integral operators of potential theory:
   single layer $S_D$, Neumann–Poincaré $K_D^*$ and their derivatives.
-- **CGPT** — contracted generalized polarization tensors, computed numerically
+- **CGPT**: contracted generalized polarization tensors, computed numerically
   for any shape and analytically for disks and ellipses, with their exact
   transformation rules under translation, rotation and scaling.
-- **Forward problem** — multistatic response (MSR) matrices of the
+- **Forward problem**: multistatic response (MSR) matrices of the
   conductivity equation, at one or several frequencies, with calibrated noise.
-- **Inverse problem** — least-squares and closed-form reconstruction of the
+- **Inverse problem**: least-squares and closed-form reconstruction of the
   CGPT from MSR data.
-- **Dictionary matching** — invariant shape descriptors and identification of
+- **Dictionary matching**: invariant shape descriptors and identification of
   an unknown target in a dictionary of shapes.
-- **Tracking** — Extended Kalman Filter estimating the position and
+- **Tracking**: Extended Kalman Filter estimating the position and
   orientation of a moving target.
 
 ## Quick example

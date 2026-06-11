@@ -1,6 +1,6 @@
 <div align="center">
 
-# SIES — Shape Identification in Electro-Sensing
+# SIES: Shape Identification in Electro-Sensing
 
 [![CI](https://github.com/tomboulier/SIES/actions/workflows/ci.yml/badge.svg)](https://github.com/tomboulier/SIES/actions/workflows/ci.yml)
 [![Docs](https://github.com/tomboulier/SIES/actions/workflows/docs.yml/badge.svg)](https://tomboulier.github.io/SIES/)
@@ -24,7 +24,7 @@ Polarization Tensors**, identify shapes by **dictionary matching**, and
 ---
 
 Weakly electric fish sense their environment by emitting an electric field
-and measuring its perturbation — a beautiful inverse problem. SIES implements
+and measuring its perturbation, a beautiful inverse problem. SIES implements
 the mathematical machinery behind this *electro-sensing* paradigm: boundary
 integral equations, small-volume asymptotic expansions (GPTs), invariant
 shape descriptors, and Kalman filtering.
@@ -84,7 +84,7 @@ Filter:
 | Module | What it does |
 | --- | --- |
 | `sies.shapes` | $C^2$-smooth discretized boundaries (ellipse, flower, triangle, rectangle, banana) with exact differential geometry, rigid motions and spline resampling |
-| `sies.operators` | Layer potentials of potential theory: single layer $S_D$, Neumann–Poincaré $K_D^*$, normal derivatives — P0 boundary elements with analytic singular diagonals |
+| `sies.operators` | Layer potentials of potential theory: single layer $S_D$, Neumann–Poincaré $K_D^*$, normal derivatives, implemented as P0 boundary elements with analytic singular diagonals |
 | `sies.asymptotics` | Contracted Generalized Polarization Tensors (CGPT): boundary-integral computation, closed forms for disks/ellipses, exact transformation rules under rigid motions and scaling |
 | `sies.acquisition` | Geometry of sources/receivers: concentric circles, full or limited view, grouped arrays |
 | `sies.pde` | Conductivity problem: multistatic response simulation (multi-frequency, calibrated noise) and CGPT reconstruction (least squares + closed form) |
@@ -100,9 +100,9 @@ files, no hidden state) live in [`notebooks/`](notebooks):
 marimo edit notebooks/dictionary_matching.py
 ```
 
-- [`cgpt_pipeline.py`](notebooks/cgpt_pipeline.py) — forward & inverse CGPT pipeline, validated against closed forms
-- [`dictionary_matching.py`](notebooks/dictionary_matching.py) — full identification experiment with noise-robustness study
-- [`target_tracking.py`](notebooks/target_tracking.py) — EKF tracking of a moving target
+- [`cgpt_pipeline.py`](notebooks/cgpt_pipeline.py): forward & inverse CGPT pipeline, validated against closed forms
+- [`dictionary_matching.py`](notebooks/dictionary_matching.py): full identification experiment with noise-robustness study
+- [`target_tracking.py`](notebooks/target_tracking.py): EKF tracking of a moving target
 
 ## Development
 
@@ -125,7 +125,7 @@ under noise, tracking).
 > [!NOTE]
 > The documentation site is built and published automatically by the `Docs`
 > workflow on every push to `master`, through the official GitHub Pages
-> actions — no manual configuration is needed in *Settings → Pages*.
+> actions; no manual configuration is needed in *Settings → Pages*.
 
 ## References
 
