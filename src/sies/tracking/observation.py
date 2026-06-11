@@ -34,6 +34,10 @@ class CGPTObservation:
     def __init__(self, src_matrix: NDArray, rcv_matrix: NDArray, cgpt: NDArray):
         if cgpt.shape[0] != cgpt.shape[1]:
             raise ValueError("CGPT matrix must be square.")
+        if cgpt.shape[0] % 2 != 0:
+            raise ValueError("CGPT matrix size must be even (shape (2k, 2k)).")
+        if src_matrix.shape[1] != cgpt.shape[0] or rcv_matrix.shape[1] != cgpt.shape[0]:
+            raise ValueError("Acquisition matrix columns must match the CGPT size.")
         self.src_matrix = src_matrix
         self.rcv_matrix = rcv_matrix
         self.cgpt = cgpt

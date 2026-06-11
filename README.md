@@ -69,7 +69,7 @@ data = pde.add_white_noise(pde.simulate_data(), level=0.02)
 # 3. Reconstruct the polarization tensors and identify the shape
 result = pde.reconstruct_cgpt_analytic(data.msr_noisy[0], order=5)
 descriptor = ShapeDescriptor.from_cgpt(result.cgpt[0])
-print(dico.identify(descriptor, order=3))   # -> "Flower"
+print(dico.identify(descriptor, order=3))   # expected: "Flower"
 ```
 
 ![Dictionary matching](docs/assets/matching_results.png)
@@ -107,6 +107,8 @@ marimo edit notebooks/dictionary_matching.py
 ## Development
 
 ```bash
+pip install -e ".[dev,docs]"  # all development and documentation extras
+
 pytest --cov=sies            # tests (unit / integration / e2e), coverage > 90% enforced
 ruff check src tests         # linting
 ruff format src tests        # formatting

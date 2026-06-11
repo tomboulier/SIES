@@ -53,16 +53,27 @@ class ShapeDescriptor:
         -------
         ShapeDescriptor
             The invariant descriptors.
+
+        Raises
+        ------
+        ValueError
+            If the CGPT is degenerate (vanishing leading entry or
+            diagonal), which prevents the normalization.
         """
         n1, n2 = cgpt_to_complex(cgpt)
 
         # Estimated (complex) offset of the equivalent center of the shape.
+        if np.isclose(np.abs(n2[0, 0]), 0.0):
+            raise ValueError("Cannot infer the descriptor center: N2[0, 0] is zero.")
         center = n2[0, 1] / n2[0, 0] / 2
         t1, t2 = transform_ccgpt_inverse(n1, n2, center, 1.0, 0.0)
 
         # Scaling invariance: normalize by the diagonal of T2 (stable at
         # high orders).
-        norm = np.diag(1 / np.sqrt(np.abs(np.diag(t2))))
+        diag_t2 = np.abs(np.diag(t2))
+        if np.any(np.isclose(diag_t2, 0.0)):
+            raise ValueError("Cannot normalize the descriptor: zero diagonal in the CGPT.")
+        norm = np.diag(1 / np.sqrt(diag_t2))
         s1 = norm @ t1 @ norm
         s2 = norm @ t2 @ norm
         return cls(i1=np.abs(s1), i2=np.abs(s2))

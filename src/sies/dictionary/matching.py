@@ -98,7 +98,14 @@ class ShapeDictionary:
         -------
         ShapeDictionary
             The assembled dictionary.
+
+        Raises
+        ------
+        ValueError
+            If `shapes` is empty.
         """
+        if not shapes:
+            raise ValueError("`shapes` must contain at least one reference shape.")
         lam = contrast(cnd, pmtt, freq)
         descriptors = [
             ShapeDescriptor.from_cgpt(theoretical_cgpt(shape, lam, order)) for shape in shapes

@@ -65,3 +65,13 @@ def test_match_descriptor_function(flower_cgpt):
     errors, ranking = match_descriptor(query, items)
     assert ranking[0] == 0
     assert errors[1] > errors[0]
+
+
+def test_degenerate_cgpt_rejected():
+    with pytest.raises(ValueError, match="zero"):
+        ShapeDescriptor.from_cgpt(np.zeros((8, 8)))
+
+
+def test_empty_dictionary_rejected():
+    with pytest.raises(ValueError, match="at least one"):
+        ShapeDictionary.build([], cnd=3.0)

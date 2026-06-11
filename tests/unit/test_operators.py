@@ -92,3 +92,11 @@ def test_normal_derivative_kernel_shape(disk):
     assert operator.matrix.shape == (32, disk.nb_points)
     assert operator.domain is disk
     assert operator.image is other
+
+
+def test_normal_derivative_rejects_coincident_boundaries(disk):
+    # Two distinct objects with geometrically coincident points must be
+    # rejected (the kernel is singular there).
+    copy_of_disk = disk + np.zeros(2)
+    with pytest.raises(ValueError, match="disjoint"):
+        SingleLayerNormalDerivative(disk, copy_of_disk)

@@ -124,10 +124,10 @@ class ConductivityR2:
 
         cnd = np.atleast_1d(np.asarray(cnd, dtype=float))
         pmtt = np.atleast_1d(np.asarray(pmtt, dtype=float))
-        if len(cnd) < len(inclusions) or len(pmtt) < len(inclusions):
+        if len(cnd) != len(inclusions) or len(pmtt) != len(inclusions):
             raise ValueError("Conductivity and permittivity must be given for each inclusion.")
         if np.any(cnd == 1) or np.any(cnd < 0):
-            raise ValueError("Conductivity must be positive and different from 1.")
+            raise ValueError("Conductivity must be nonnegative and different from 1.")
         if np.any(pmtt < 0):
             raise ValueError("Permittivity must be nonnegative.")
 

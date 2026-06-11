@@ -63,6 +63,21 @@ def test_observation_rejects_nonsquare_cgpt():
         CGPTObservation(np.eye(3), np.eye(3), np.zeros((4, 2)))
 
 
+def test_observation_rejects_odd_cgpt_size():
+    with pytest.raises(ValueError, match="even"):
+        CGPTObservation(np.zeros((5, 3)), np.zeros((5, 3)), np.zeros((3, 3)))
+
+
+def test_observation_rejects_incompatible_acquisition_matrices():
+    with pytest.raises(ValueError, match="columns"):
+        CGPTObservation(np.zeros((5, 2)), np.zeros((5, 4)), np.zeros((4, 4)))
+
+
+def test_simulate_target_path_rejects_zero_steps():
+    with pytest.raises(ValueError, match="nb_steps"):
+        simulate_target_path(0.1, 0, np.zeros(5), 0.5, 0.1)
+
+
 def test_ekf_on_linear_problem(rng):
     # Fully linear observable system: the EKF reduces to the KF and must
     # converge to the true constant state.

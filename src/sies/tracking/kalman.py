@@ -86,7 +86,14 @@ def simulate_target_path(
     -------
     ndarray, shape (5, nb_steps)
         The simulated state at each time step.
+
+    Raises
+    ------
+    ValueError
+        If `nb_steps` is not at least one.
     """
+    if nb_steps < 1:
+        raise ValueError("`nb_steps` must be >= 1.")
     rng = rng or np.random.default_rng()
     state_matrix, _, noise_gain = target_dynamics(dt, std_acc, std_acc_angle)
 

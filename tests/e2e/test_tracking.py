@@ -54,7 +54,18 @@ def test_ekf_tracks_moving_target():
     )
     estimates = ekf.run(measurements, x0, initial_cov=0.1 * np.eye(5))
 
-    # Position error stays small once the filter has converged
-    position_error = np.linalg.norm(estimates[2:4, 10:] - path[2:4, 10:], axis=0)
-    assert np.median(position_error) < 0.05
-    assert position_error[-1] < 0.1
+    # Empirical thresholds: skip the transient (~1 s of simulated time)
+    # and require an accuracy well below the target size (diameter 0.4).
+    convergence_window = 10
+    position_median_tol = 0.05
+    position_final_tol = 0.1
+    orientation_median_tol = 0.05
+
+    position_error = np.linalg.norm(
+        estimates[2:4, convergence_window:] - path[2:4, convergence_window:], axis=0
+    )
+    assert np.median(position_error) < position_median_tol
+    assert position_error[-1] < position_final_tol
+
+    orientation_error = np.abs(estimates[4, convergence_window:] - path[4, convergence_window:])
+    assert np.median(orientation_error) < orientation_median_tol

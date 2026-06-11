@@ -312,6 +312,9 @@ class Banana(C2Boundary):
             ]
         )
 
+        # The banana boundary is parameterized clockwise, so the outward
+        # normal uses the rotation opposite to `_outward_normal` (which
+        # assumes counterclockwise curves).
         normal = np.vstack([-tvec[1], tvec[0]])
         normal = normal / np.linalg.norm(normal, axis=0)
 

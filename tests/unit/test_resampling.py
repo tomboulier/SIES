@@ -39,3 +39,10 @@ def test_resample_rejects_bad_downsampling():
     points0, theta0 = _circle(32)
     with pytest.raises(ValueError, match="positive"):
         resample_curve(points0, theta0, 32, downsample=0)
+
+
+def test_resample_rejects_degenerate_curve():
+    theta0 = 2 * np.pi * np.arange(32) / 32
+    flat = np.vstack([np.cos(theta0), np.zeros(32)])
+    with pytest.raises(ValueError, match="extent"):
+        resample_curve(flat, theta0, 32, box=(2.0, 1.0))

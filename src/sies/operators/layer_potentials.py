@@ -271,6 +271,18 @@ class SingleLayerNormalDerivative(BoundaryOperator):
         -------
         ndarray, shape (m, n)
             The kernel matrix.
+
+        Raises
+        ------
+        ValueError
+            If the two boundaries share coincident points (the kernel is
+            singular there).
         """
-        gx, gy = green2d_grad(image_points, points)
-        return (image_normal[0][:, np.newaxis] * gx + image_normal[1][:, np.newaxis] * gy) * sigma
+        with np.errstate(divide="ignore", invalid="ignore"):
+            gx, gy = green2d_grad(image_points, points)
+            kernel = (
+                image_normal[0][:, np.newaxis] * gx + image_normal[1][:, np.newaxis] * gy
+            ) * sigma
+        if not np.all(np.isfinite(kernel)):
+            raise ValueError("Domain and image boundaries must be geometrically disjoint.")
+        return kernel

@@ -53,6 +53,8 @@ def test_source_indexing_and_groups():
 
     with pytest.raises(IndexError):
         cfg.source(8)
+    with pytest.raises(IndexError):
+        cfg.receivers_of_source(8)
 
 
 def test_ungrouped_concatenates_arcs():

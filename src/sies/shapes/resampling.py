@@ -79,6 +79,8 @@ def resample_curve(
     if box is not None:
         xmin, xmax = points[0].min(), points[0].max()
         ymin, ymax = points[1].min(), points[1].max()
+        if np.isclose(xmax, xmin) or np.isclose(ymax, ymin):
+            raise ValueError("Curve must have nonzero extent in both axes for box rescaling.")
         center = np.array([(xmin + xmax) / 2, (ymin + ymax) / 2])
         scale = np.array([box[0] / (xmax - xmin), box[1] / (ymax - ymin)])
         points = (points - center[:, np.newaxis]) * scale[:, np.newaxis]

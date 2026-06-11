@@ -182,6 +182,8 @@ class AcquisitionConfig:
         ndarray, shape (2, nr)
             Coordinates of the receivers of the source's group.
         """
+        if not 0 <= s < self.nb_sources:
+            raise IndexError("Source index out of range.")
         g = s // self.nb_sources_per_group
         return self._rcv_groups[g]
 
